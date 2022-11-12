@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter,Route , Routes} from 'react-router-dom'
+import Home from './Pages/Home';
+import Add from './Pages/Add';
+import Edit from './Pages/Edit';
+import Detail from './Pages/Detail';
+import Signin from './Pages/Signin';
+import NotFound from './Pages/NotFound';
+import Error from './Pages/Error';
+import { ErrorBoundary } from 'react-error-boundary';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ErrorBoundary fallback={<Error />}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/edit:id" element={<Edit />}/>
+          <Route path="/book:id" element={<Detail />}/>
+          <Route path="/add" element={<Add />}/>
+          <Route path="/signin" element={<Signin />}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="*" element={<NotFound />}/>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
+
+  )
 }
 
 export default App;
